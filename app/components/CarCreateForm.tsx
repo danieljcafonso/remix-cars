@@ -39,7 +39,7 @@ export const CarCreateForm = () => (
         >
           What car do you want to sell?
         </h1>
-        <Form action="/main/create" method="post">
+        <Form method="post">
           <div style={{ display: "flex", flexFlow: "row wrap" }}>
             <div
               style={{
@@ -88,6 +88,7 @@ export const CarCreateForm = () => (
                     <select
                       name="segment"
                       defaultValue=""
+                      required
                       style={{
                         cursor: "pointer",
                         width: "100%",
@@ -161,6 +162,7 @@ export const CarCreateForm = () => (
                   >
                     <input
                       name="brand"
+                      required
                       style={{
                         cursor: "pointer",
                         width: "100%",
@@ -226,6 +228,7 @@ export const CarCreateForm = () => (
                   >
                     <input
                       name="model"
+                      required
                       style={{
                         cursor: "pointer",
                         width: "100%",
@@ -291,6 +294,7 @@ export const CarCreateForm = () => (
                     <input
                       name="photo"
                       type="url"
+                      required
                       style={{
                         cursor: "pointer",
                         width: "100%",
@@ -356,6 +360,7 @@ export const CarCreateForm = () => (
                   >
                     <input
                       name="fuel"
+                      required
                       style={{
                         cursor: "pointer",
                         width: "100%",
@@ -421,6 +426,8 @@ export const CarCreateForm = () => (
                     <input
                       name="price"
                       type="number"
+                      required
+                      min={0}
                       style={{
                         cursor: "pointer",
                         width: "100%",

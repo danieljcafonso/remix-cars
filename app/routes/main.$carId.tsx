@@ -1,9 +1,27 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import type { V2_MetaFunction } from "@remix-run/react";
+import { Form } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { Car } from "~/models/car.server";
+import { deleteCar } from "~/models/car.server";
 import { getCarById } from "~/models/car.server";
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: "Fest.dev Car Page" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "I am describing this app",
+    },
+  ];
+};
 
 type LoaderData = {
   car: Car;
@@ -19,13 +37,23 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({ car });
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const id = Number(formData.get("id"));
+
+  const car = await deleteCar({ id });
+
+  return redirect(`/main/list`);
+};
+
 export default function CarView() {
   const { car } = useLoaderData() as LoaderData;
 
   return (
     <section>
-      <a
-        href="/main/list"
+      <Link
+        to="/main/list"
+        prefetch="intent"
         style={{
           color: "#0071ce",
           display: "inline",
@@ -36,7 +64,7 @@ export default function CarView() {
         }}
       >
         Go back
-      </a>
+      </Link>
       <div style={{ columnCount: 2 }}>
         <img
           alt="car"
@@ -95,29 +123,32 @@ export default function CarView() {
               EUR
             </span>
           </span>
-          <button
-            type="submit"
-            style={{
-              marginTop: "15px",
-              alignItems: "center",
-              boxSizing: "border-box",
-              cursor: "pointer",
-              display: "inline-flex",
-              justifyContent: "center",
-              textDecoration: "none",
-              width: "50%",
-              fontWeight: 700,
-              fontSize: "16px",
-              lineHeight: "18px",
-              backgroundColor: "#C82814",
-              border: "5px solid #C82814",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-              padding: "10px 30px 8px 30px",
-            }}
-          >
-            Delete Car
-          </button>
+          <Form method="POST">
+            <input type="hidden" name="id" value={car.id} />
+            <button
+              type="submit"
+              style={{
+                marginTop: "15px",
+                alignItems: "center",
+                boxSizing: "border-box",
+                cursor: "pointer",
+                display: "inline-flex",
+                justifyContent: "center",
+                textDecoration: "none",
+                width: "50%",
+                fontWeight: 700,
+                fontSize: "16px",
+                lineHeight: "18px",
+                backgroundColor: "#C82814",
+                border: "5px solid #C82814",
+                borderRadius: "4px",
+                color: "#FFFFFF",
+                padding: "10px 30px 8px 30px",
+              }}
+            >
+              Delete Car
+            </button>
+          </Form>
         </div>
       </div>
     </section>

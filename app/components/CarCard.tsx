@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import type { Car } from "~/models/car.server";
 
 const randomPhotos = [
@@ -5,9 +6,16 @@ const randomPhotos = [
   "https://ogimg.infoglobo.com.br/in/24204999-a8f-186/FT1500A/690/bruno-aleixo.jpg",
 ];
 
-export const CarCard = ({ car }: { car: Car }) => (
-  <a
-    href={`/main/${car.id}`}
+export const CarCard = ({
+  car,
+  isOptimistic = false,
+}: {
+  car: Car;
+  isOptimistic?: boolean;
+}) => (
+  <Link
+    to={`/main/${car.id}`}
+    prefetch="intent"
     style={{
       display: "block",
       width: "312px",
@@ -19,6 +27,7 @@ export const CarCard = ({ car }: { car: Car }) => (
   >
     <article
       style={{
+        opacity: isOptimistic ? 0.5 : 1,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -130,7 +139,7 @@ export const CarCard = ({ car }: { car: Car }) => (
         </section>
       </section>
     </article>
-  </a>
+  </Link>
 );
 
 export default CarCard;

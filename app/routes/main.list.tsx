@@ -1,9 +1,26 @@
 import type { Car } from ".prisma/client";
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import type { V2_MetaFunction } from "@remix-run/react";
+import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import { useLoaderData } from "@remix-run/react";
 import CarCard from "~/components/CarCard";
 import { getAllCars } from "~/models/car.server";
+import { isError } from "~/utils/utils";
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: "Fest.dev Car List Page" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "I am describing this app",
+    },
+  ];
+};
 
 type LoaderData = {
   cars: Car[];
@@ -35,5 +52,44 @@ export default function ListCars() {
         <CarCard key={car.id} car={car} />
       ))}
     </section>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <h1>Oops</h1>
+        <p>Status: {error.status}</p>
+        <p>{error.data.message}</p>
+      </div>
+    );
+  }
+
+  let errorMessage = "Unexpected error";
+  if (isError(error)) errorMessage = error.message;
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1>Uh oh ...</h1>
+      <p>Something went wrong.</p>
+      <pre>{errorMessage}</pre>
+    </div>
   );
 }

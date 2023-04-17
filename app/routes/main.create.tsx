@@ -1,7 +1,24 @@
-import { Car } from "@prisma/client";
-import { json, ActionFunction, redirect } from "@remix-run/node";
+import type { Car } from "@prisma/client";
+import type { ActionFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import type { V2_MetaFunction } from "@remix-run/react";
 import CarCreateForm from "~/components/CarCreateForm";
 import { createCar } from "~/models/car.server";
+import { getCarFormData } from "~/utils/utils";
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: "Fest.dev Create Car Page" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "I am describing this app",
+    },
+  ];
+};
 
 type ActionData = {
   formError?: string;
@@ -15,31 +32,12 @@ type ActionData = {
   };
   fields?: Car;
 };
-const validateIfEmpty = (value: string) =>
-  value.length === 0 ? "This field is required" : undefined;
 
 const badRequest = (data: ActionData) => json(data, { status: 400 });
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("hello");
   const formData = await request.formData();
-  const brand = formData.get("brand");
-  const segment = formData.get("segment");
-  const price = Number(formData.get("price"));
-  const fuel = formData.get("fuel");
-  const model = formData.get("model");
-  const photo = formData.get("photo");
-  const fields = {
-    brand,
-    segment,
-    price,
-    fuel,
-    model,
-    photo,
-  } as unknown as Pick<
-    Car,
-    "brand" | "segment" | "price" | "fuel" | "model" | "photo"
-  >;
+  const fields = getCarFormData(formData);
 
   if (
     typeof fields.brand !== "string" ||
@@ -53,16 +51,6 @@ export const action: ActionFunction = async ({ request }) => {
       formError: `Form not submitted correctly.`,
     });
   }
-
-  // const errors = {
-  //   brand: validateIfEmpty(brand),
-  //   segment: validateIfEmpty(seg),
-  //   weakness: validateIfEmpty(weakness),
-  // };
-
-  // if (Object.values(errors).some(Boolean)) {
-  //   return badRequest({ errors, fields });
-  // }
 
   const car = await createCar(fields);
 

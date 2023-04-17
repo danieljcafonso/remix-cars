@@ -1,3 +1,5 @@
+import { Link, NavLink } from "@remix-run/react";
+
 export const StandVirtualHeader = () => {
   return (
     <header
@@ -24,10 +26,7 @@ export const StandVirtualHeader = () => {
           style={{ display: "flex", alignItems: "center", padding: "8px 24px" }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a
-              href="https://www.standvirtual.com/"
-              style={{ textDecoration: "none" }}
-            >
+            <Link to="/main" style={{ textDecoration: "none" }}>
               <img alt="logo" src="/logo.svg" height={30} width={150} />
               <span
                 style={{
@@ -41,11 +40,12 @@ export const StandVirtualHeader = () => {
               >
                 O nº 1 em Carros
               </span>
-            </a>
+            </Link>
           </div>
           <div style={{ display: "flex", marginLeft: "16px" }}>
             <div style={{ marginRight: "8px" }}>
               <img
+                alt="badge"
                 src="/badge.png"
                 width={31}
                 height={51}
@@ -86,18 +86,19 @@ export const StandVirtualHeader = () => {
                 position: "relative",
               }}
             >
-              <a
-                href="/main/create"
-                style={{
+              <NavLink
+                to="/main/create"
+                style={({ isActive }) => ({
                   padding: "0 8px",
                   color: "#66676C",
+                  textDecoration: isActive ? "underline" : "none",
                   fontSize: "13px",
                   display: "flex",
                   alignItems: "center",
-                }}
+                })}
               >
                 Add Car
-              </a>
+              </NavLink>
             </li>
             <li
               style={{
@@ -106,18 +107,19 @@ export const StandVirtualHeader = () => {
                 position: "relative",
               }}
             >
-              <a
-                href="/main/list"
-                style={{
+              <NavLink
+                to="/main/list"
+                style={({ isActive }) => ({
                   padding: "0 8px",
                   color: "#66676C",
+                  textDecoration: isActive ? "underline" : "none",
                   fontSize: "13px",
                   display: "flex",
                   alignItems: "center",
-                }}
+                })}
               >
                 View All
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
