@@ -40,12 +40,12 @@ export default function Index() {
           >
             <img
               alt="qrcode"
-              src="https://media.licdn.com/dms/image/D4D1EAQF-gb_CJFgQEA/event-background-image-crop_720_1280/0/1675122990018?e=1682020800&v=beta&t=10MNvnWWKQeENpxM7xG6zuY9rUZht9acqMAy081Sa8A"
+              src="/festdev.png"
               style={{
                 position: "absolute",
                 float: "left",
                 left: 20,
-                height: "100px",
+                height: "40px",
                 objectFit: "contain",
               }}
             />
