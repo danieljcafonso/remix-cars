@@ -11,7 +11,7 @@ import { getCarById } from "~/models/car.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Fest.dev Car Page" },
+    { title: "React Norway Car Page" },
     {
       property: "og:title",
       content: "Very cool app",

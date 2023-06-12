@@ -13,7 +13,7 @@ import { createOptimisticCar, getCarFormData, isError } from "~/utils/utils";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Fest.dev Car List Page" },
+    { title: "React Norway Car List Page" },
     {
       property: "og:title",
       content: "Very cool app",

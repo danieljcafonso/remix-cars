@@ -8,7 +8,7 @@ import { getCarFormData } from "~/utils/utils";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Fest.dev Create Car Page" },
+    { title: "React Norway Create Car Page" },
     {
       property: "og:title",
       content: "Very cool app",

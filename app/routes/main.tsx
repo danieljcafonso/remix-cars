@@ -3,7 +3,7 @@ import { Outlet } from "@remix-run/react";
 import StandVirtualHeader from "~/components/Header";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "Fest.dev Remix" }];
+  return [{ title: "React Norway Remix" }];
 };
 
 export default function Index() {
@@ -45,7 +45,7 @@ export default function Index() {
                 position: "absolute",
                 float: "left",
                 left: 20,
-                height: "160px",
+                height: "120px",
                 objectFit: "contain",
               }}
             />
