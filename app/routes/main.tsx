@@ -22,15 +22,15 @@ export default function Index() {
           className="banner"
           style={{
             position: "relative",
-            background: "#F7F8FA",
+            background: "#ffffff",
           }}
         >
           <div
             style={{
               width: "100%",
               height: "100px",
-              backgroundColor: "#040711",
-              color: "#ffffff",
+              backgroundColor: "#fbfbfb",
+              color: "#040711",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -40,16 +40,16 @@ export default function Index() {
           >
             <img
               alt="qrcode"
-              src="/festdev.png"
+              src="/reactnorway.png"
               style={{
                 position: "absolute",
                 float: "left",
                 left: 20,
-                height: "40px",
+                height: "160px",
                 objectFit: "contain",
               }}
             />
-            Hello Fest.dev
+            React Norway
             <img
               alt="qrcode"
               src="/QR.jpg"
